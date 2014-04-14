@@ -14,7 +14,7 @@ public class Solver {
 	
 	public static void main(String[] args) {
 		Solver solver = new Solver();
-		solver.readFromFile("src/C-small-attempt2.in");
+		solver.readFromFile("src/C-large-practice.in");
 	}
 
 	private int nb_case = 0;
@@ -91,13 +91,21 @@ public class Solver {
 	}
 	
 	private void generateMineArrangement() {
-		ZuHe robot = new ZuHe();
 		resultList = new ArrayList<ArrayList<Integer>>(); 
-		int[ ] num=new int[C*R];
-		for (int i = 0; i < num.length; i++) {
-			num[i] = i;
+		if (M < C*R/2) {
+			ArrayList<Integer> uniq = new ArrayList<Integer>();
+			for (int i = 0; i < M; i++) {
+				uniq.add(i);
+			}
+			resultList.add(uniq);
+		} else {
+			ZuHe robot = new ZuHe();		
+			int[ ] num=new int[C*R];
+			for (int i = 0; i < num.length; i++) {
+				num[i] = i;
+			}
+			robot.combine(num,M, resultList);
 		}
-		robot.combine(num,M, resultList);
 	}
 	
 	private int[] intToCord(int num) {
@@ -108,6 +116,7 @@ public class Solver {
 				if (count++ == num) {
 					cord[0] = i;
 					cord[1] = j;
+					return cord;
 				}
 			}
 		}
